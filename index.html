@@ -3,47 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Website Kelas PPLG - Dashboard</title>
+<title>Website Kelas PPLG</title>
 <style>
 :root {
     --bg-color: #f4f4f4;
     --text-color: #333;
-    --header-bg: #DAA520;
-    --nav-bg: #ffffff;
-    --section-bg: #ffffff;
-    --footer-bg: #DAA520;
+    --input-bg: #fff;
     --button-bg: #DAA520;
     --button-hover: #C6930A;
-    --table-header-bg: #f2f2f2;
-    --shadow: rgba(0,0,0,0.1);
+    --login-bg-filter: brightness(0.6);
+    --logo-bg-light: lightgray;
+    --logo-bg-dark: #444;
 }
-
-.dark {
+body.dark {
     --bg-color: #121212;
-    --text-color: #ffffff;
-    --header-bg: #333;
-    --nav-bg: #1a1a1a;
-    --section-bg: #1e1e1e;
-    --footer-bg: #333;
+    --text-color: #fff;
+    --input-bg: #2a2a2a;
     --button-bg: #DAA520;
     --button-hover: #C6930A;
-    --table-header-bg: #2a2a2a;
-    --shadow: rgba(255,255,255,0.1);
 }
-
 body {
+    margin:0;
+    padding:0;
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
-    min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
+    transition: all 0.3s ease;
 }
 
-/* BUTTON THEME */
+/* BUTTON MODE GLOBAL */
 .theme-toggle {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
     background: var(--button-bg);
@@ -53,197 +43,195 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    z-index: 20;
+    z-index: 2000;
 }
-.theme-toggle:hover { background: var(--button-hover); }
+.theme-toggle:hover { background-color: var(--button-hover); }
 
-/* LOGIN PAGE */
-.login-page {
+/* LOGO SPACE */
+.logo-space {
     width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    height: 80px;
+    background-color: var(--logo-bg-light);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    z-index: 10;
+}
+body.dark .logo-space {
+    background-color: var(--logo-bg-dark);
+}
+.logo-space img {
+    max-height: 60px;
+    object-fit: contain;
 }
 
+/* LOGIN */
+.login-page {
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
 .login-bg {
-    position: absolute;
+    position:absolute;
     top:0; left:0;
     width:100%; height:100%;
-    background-image: url('perkumpulan.jpg'); /* ganti foto login */
+    background-image: url('perkumpulan.jpg');
     background-size: cover;
     background-position: center;
-    filter: brightness(0.6);
+    filter: var(--login-bg-filter);
     transition: filter 0.3s;
 }
-
 .login-container {
     position: relative;
+    z-index:10;
     background-color: rgba(255,255,255,0.85);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px var(--shadow);
-    width: 90%;
-    max-width: 300px;
-    text-align: center;
-    z-index: 10;
-    transition: background-color 0.3s, color 0.3s;
+    padding: 40px;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+    text-align:center;
+    width:90%;
+    max-width:300px;
+    transition: all 0.3s;
 }
-
-.dark .login-container {
+body.dark .login-container {
     background-color: rgba(30,30,30,0.85);
-    color: #fff;
 }
-
-.login-container h2 { margin-bottom: 20px; color: var(--button-bg); }
-
+.login-container h2 { color: var(--button-bg); margin-bottom: 20px; }
 .login-container input {
-    width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc;
-    border-radius: 4px; background-color: var(--section-bg); color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:4px;
+    border:1px solid #ccc;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    transition: all 0.3s;
 }
-
 .login-container button {
-    width: 100%; padding: 10px; background-color: var(--button-bg);
-    color: var(--text-color); border: none; border-radius: 4px; cursor: pointer;
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+    background-color: var(--button-bg);
+    color: var(--text-color);
 }
 .login-container button:hover { background-color: var(--button-hover); }
 
 /* MAIN CONTENT */
-.main-content { display: none; }
-
-header {
-    background-color: var(--header-bg);
-    color: var(--text-color);
-    text-align: center;
-    padding: 15px;
-    position: relative;
-}
-
+.main-content { display:none; position:relative; }
 .hamburger {
-    display: none;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    background: var(--button-bg);
+    position: fixed;
+    top: 25px;
+    left: 20px;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    background-color: var(--button-bg);
     color: var(--text-color);
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
+    z-index:1001;
 }
 .hamburger:hover { background-color: var(--button-hover); }
 
-nav {
-    background-color: var(--nav-bg);
-    overflow: hidden;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-
-nav li { float: left; }
-
-nav a {
-    display: block;
-    color: var(--text-color);
-    text-align: center;
-    padding: 10px 14px;
-    text-decoration: none;
-}
-nav a:hover { background-color: var(--button-hover); color: var(--bg-color); }
-
-.layout { display: flex; height: calc(100vh - 80px); }
-
+/* SIDEBAR */
 .sidebar {
-    width: 200px;
-    background-color: var(--nav-bg);
-    padding: 20px;
-    box-shadow: 2px 0 5px var(--shadow);
+    position: fixed;
+    top:0;
+    left:-220px;
+    width:200px;
+    height:100%;
+    background-color: var(--bg-color);
+    padding-top:120px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    transition:left 0.4s;
+    z-index:1000;
 }
-.sidebar.active { display: block; }
-.sidebar ul { list-style-type: none; padding: 0; display: flex; flex-direction: column; }
-.sidebar li { margin-bottom: 10px; }
-.sidebar a { display: block; color: var(--text-color); text-decoration: none; padding: 10px; border-radius: 4px; }
-.sidebar a:hover { background-color: var(--button-hover); color: var(--bg-color); }
-
-.content { flex: 1; padding: 20px; overflow-y: auto; }
-
-/* SECTIONS */
-section {
-    margin: 20px;
-    padding: 20px;
-    background-color: var(--section-bg);
-    border-radius: 8px;
-    box-shadow: 0 0 10px var(--shadow);
+.sidebar ul { list-style:none; padding:0; }
+.sidebar li { margin-bottom:10px; }
+.sidebar a {
+    display:block;
+    padding:10px;
+    border-radius:4px;
+    text-decoration:none;
     color: var(--text-color);
-    display: none;
 }
+.sidebar a:hover { background-color: var(--button-hover); color: #fff; }
 
-/* HOME PAGE */
+/* CONTENT */
+.content { transition: margin-left 0.4s; padding:20px; }
+section { display:none; margin:20px 0; padding:20px; border-radius:8px; transition: all 0.3s; }
 #home {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: calc(100vh - 80px);
-    background-image: url('perkumpulan.jpg'); /* ganti foto */
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
-    position: relative;
-    text-align: center;
-    margin: 0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background-image: url('perkumpulan.jpg');
+    background-size:cover;
+    background-position:center;
+    min-height:calc(100vh - 80px);
+    position:relative;
+    color:#fff;
 }
-
 #home::before {
     content:"";
-    position: absolute;
-    top:0; left:0;
+    position:absolute; top:0; left:0;
     width:100%; height:100%;
-    background-color: rgba(0,0,0,0.35);
-    z-index:0;
+    background-color: rgba(0,0,0,0.3);
 }
+#home > * { position:relative; z-index:1; }
+#home h2 { margin:0 0 20px; font-size:2rem; text-shadow:1px 1px 4px rgba(0,0,0,0.7); }
+#home p { font-size:1.2rem; line-height:1.5; text-shadow:1px 1px 4px rgba(0,0,0,0.7); }
 
-#home > * { position: relative; z-index:1; }
-#home h2 { margin-bottom: 15px; font-size: 2rem; font-weight: bold; color: #FFD700; }
-#home p { margin-bottom: 10px; font-size: 1.2rem; color: #ffffff; }
-
-/* MEMBER */
-.member { display: flex; align-items: center; margin: 10px 0; }
-.member img { width: 80px; height: 80px; border-radius: 50%; margin-right: 15px; object-fit: cover; }
-.member-info { flex: 1; }
+/* STRUKTUR KELAS */
+.member { display:flex; align-items:center; margin:10px 0; }
+.member img { width:80px; height:80px; border-radius:50%; margin-right:15px; object-fit:cover; }
+.member-info { flex:1; }
 
 /* TABLE */
-table { width:100%; border-collapse: collapse; color: var(--text-color); }
+table { width:100%; border-collapse:collapse; color: var(--text-color); }
 th, td { border:1px solid #ddd; padding:8px; text-align:left; }
-th { background-color: var(--table-header-bg); color: var(--text-color); }
-td { background-color: var(--section-bg); }
+th { background-color:#f2f2f2; }
 
 /* GALLERY */
 .gallery { display:flex; flex-wrap:wrap; gap:10px; }
-.gallery img { width:200px; height:150px; object-fit:cover; border-radius:5px; }
+.gallery img { width:200px; height:150px; object-fit:cover; border-radius:5px; cursor:pointer; transition: transform 0.3s; }
+.gallery img:hover { transform: scale(1.05); }
 
-/* RESPONSIVE */
-@media (max-width:768px){
-    header{padding:10px;}
-    .hamburger{display:block;}
-    .layout{flex-direction:column;}
-    nav ul{flex-direction:column;}
-    nav li{float:none;}
-    section{margin:10px;padding:10px;}
-    .member{flex-direction:column;text-align:center;}
-    .member img{margin-right:0;margin-bottom:10px;}
-    .gallery img{width:100%;max-width:200px;}
-    .theme-toggle { top: 10px; right: 10px; }
+/* LIGHTBOX */
+#lightbox {
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background-color: rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+#lightbox img {
+    max-width:90%;
+    max-height:90%;
+    border-radius:8px;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+    animation:fadeIn 0.3s;
+}
+@keyframes fadeIn {
+    from {opacity:0; transform: scale(0.8);}
+    to {opacity:1; transform: scale(1);}
+}
+
+@media(max-width:768px){
+    #home h2 { font-size:1.5rem; }
+    #home p { font-size:1rem; padding:0 10px; }
+    .gallery img { width:100%; max-width:200px; }
 }
 </style>
 </head>
@@ -261,83 +249,70 @@ td { background-color: var(--section-bg); }
         </form>
         <p style="margin-top:10px;font-size:12px;">(hanya admin)</p>
     </div>
-    <button class="theme-toggle" id="login-theme-toggle">Mode Gelap</button>
+    <button class="theme-toggle" id="theme-toggle-login">Mode Gelap</button>
 </div>
 
 <!-- MAIN CONTENT -->
 <div id="main-content" class="main-content">
-    <header>
-        <button class="hamburger" id="hamburger">☰</button>
-        <h1>Website Kelas X PPLG</h1>
-    </header>
-    <button class="theme-toggle" id="main-theme-toggle">Mode Gelap</button>
-
-    <div class="layout">
-        <nav class="sidebar">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#struktur-kelas">Struktur Kelas</a></li>
-                <li><a href="#anggota-non-inti">Anggota Non-Inti</a></li>
-                <li><a href="#foto-kenangan">Foto Kenangan</a></li>
-                <li><a href="#nilai-ujian">Nilai Ujian</a></li>
-            </ul>
-        </nav>
-
-        <div class="content">
-            <section id="home">
-                <h2>Selamat Datang di Website Kelas 10 PPLG</h2>
-                <p>Website resmi untuk berbagi informasi, foto kenangan, dan nilai ujian siswa.</p>
-                <p>Semoga website ini bermanfaat bagi seluruh anggota kelas.</p>
-            </section>
-
-            <section id="struktur-kelas">
-                <h2>Struktur Kelas</h2>
-                <div class="member">
-                    <img src="https://via.placeholder.com/80x80?text=Wali+Kelas" alt="Wali Kelas">
-                    <div class="member-info"><strong>Wali Kelas:</strong> Bu Amelia Chintani</div>
-                </div>
-            </section>
-
-            <section id="anggota-non-inti">
-                <h2>Anggota Non-Inti</h2>
-                <div class="member">
-                    <img src="nope.jpeg" alt="Foto ">
-                    <div class="member-info">Sri wahyuni- Murid Biasa</div>
-                </div>
-            </section>
-
-            <section id="foto-kenangan">
-                <h2>Foto Kenangan</h2>
-                <div class="gallery">
-                    <img src="99 kubah.jpg" alt="Foto 1">
-                    <img src="kemerdekaan.jpg" alt="Foto 2">
-                </div>
-            </section>
-
-            <section id="nilai-ujian">
-                <h2>Nilai Ujian</h2>
-                <table>
-                    <thead>
-                        <tr><th>Nama Siswa</th><th>Mata Pelajaran</th><th>Nilai</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Ahmad</td><td>Matematika</td><td>85</td></tr>
-                        <tr><td>Budi</td><td>Bahasa Indonesia</td><td>90</td></tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
+    <!-- Logo space -->
+    <div class="logo-space">
+        <img src="logo.png" alt="Logo Kelas">
     </div>
-
-    <footer style="text-align:center;padding:10px;background-color:var(--footer-bg);color:var(--text-color);">
-        <p>&copy; 2025 Website Kelas. Dibuat dengan cinta.</p>
-    </footer>
+    <button class="theme-toggle" id="theme-toggle-main">Mode Gelap</button>
+    <button class="hamburger" id="hamburger">☰</button>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#struktur-kelas">Struktur Kelas</a></li>
+            <li><a href="#foto-kenangan">Foto Kenangan</a></li>
+            <li><a href="#nilai-ujian">Nilai Ujian</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <section id="home">
+            <h2>Selamat Datang di Website Kelas 10 PPLG</h2>
+            <p>Website resmi untuk berbagi informasi, foto kenangan, dan nilai ujian siswa.</p>
+        </section>
+        <section id="struktur-kelas">
+            <h2>Struktur Kelas</h2>
+            <div class="member">
+                <img src="https://via.placeholder.com/80x80?text=Pembina" alt="Pembina Kelas">
+                <div class="member-info"><strong>Pembina Kelas:</strong> Bapak/Ibu Pembina</div>
+            </div>
+            <div class="member">
+                <img src="https://via.placeholder.com/80x80?text=Inti" alt="Anggota Inti">
+                <div class="member-info"><strong>Anggota Inti:</strong> Nama-nama Inti</div>
+            </div>
+            <div class="member">
+                <img src="https://via.placeholder.com/80x80?text=Biasa" alt="Anggota Biasa">
+                <div class="member-info"><strong>Anggota Biasa:</strong> Nama-nama Biasa</div>
+            </div>
+        </section>
+        <section id="foto-kenangan">
+            <h2>Foto Kenangan</h2>
+            <input type="file" id="upload-photo" multiple accept="image/*">
+            <div class="gallery" id="gallery"></div>
+        </section>
+        <section id="nilai-ujian">
+            <h2>Nilai Ujian</h2>
+            <table>
+                <thead><tr><th>Nama Siswa</th><th>Mata Pelajaran</th><th>Nilai</th></tr></thead>
+                <tbody>
+                    <tr><td>Ahmad</td><td>Matematika</td><td>85</td></tr>
+                    <tr><td>Budi</td><td>Bahasa Indonesia</td><td>90</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
 </div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox"><img src="" alt="Foto Besar"></div>
 
 <script>
 // LOGIN SYSTEM
-document.getElementById('login-form').addEventListener('submit', function(event){
-    event.preventDefault();
+document.getElementById('login-form').addEventListener('submit', function(e){
+    e.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     if(username==='admin' && password==='123'){
@@ -348,33 +323,76 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     } else { alert('Username atau password salah!'); }
 });
 
+// HAMBURGER
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+const content = document.querySelector('.content');
+hamburger.addEventListener('click', ()=>{
+    if(sidebar.style.left==='0px'){
+        sidebar.style.left='-220px';
+        content.style.marginLeft='0';
+    } else {
+        sidebar.style.left='0px';
+        content.style.marginLeft='200px';
+    }
+});
+
 // NAVIGATION
-document.querySelectorAll('nav a').forEach(link=>{
+document.querySelectorAll('.sidebar a').forEach(link=>{
     link.addEventListener('click',function(e){
         e.preventDefault();
         const target = this.getAttribute('href').substring(1);
         document.querySelectorAll('section').forEach(s=>s.style.display='none');
         document.getElementById(target).style.display='block';
+        sidebar.style.left='-220px';
+        content.style.marginLeft='0';
     });
 });
 
-// THEME TOGGLE
-const loginThemeBtn = document.getElementById('login-theme-toggle');
-const mainThemeBtn = document.getElementById('main-theme-toggle');
-[loginThemeBtn, mainThemeBtn].forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        document.body.classList.toggle('dark');
-        [loginThemeBtn, mainThemeBtn].forEach(b=>{
-            b.textContent = document.body.classList.contains('dark')?'Mode Terang':'Mode Gelap';
-        });
-    });
+// THEME TOGGLE LOGIN
+document.getElementById('theme-toggle-login').addEventListener('click', ()=>{
+    document.body.classList.toggle('dark');
+    document.getElementById('theme-toggle-login').textContent = document.body.classList.contains('dark')?'Mode Terang':'Mode Gelap';
 });
 
-// HAMBURGER TOGGLE
-const hamburger = document.getElementById('hamburger');
-const sidebar = document.querySelector('.sidebar');
-hamburger.addEventListener('click',()=>{ sidebar.classList.toggle('active'); });
+// THEME TOGGLE MAIN
+document.getElementById('theme-toggle-main').addEventListener('click', ()=>{
+    document.body.classList.toggle('dark');
+    document.getElementById('theme-toggle-main').textContent = document.body.classList.contains('dark')?'Mode Terang':'Mode Gelap';
+});
+
+// LIGHTBOX
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+document.addEventListener('click', e=>{
+    if(e.target.classList.contains('gallery-img')){
+        lightbox.style.display='flex';
+        lightboxImg.src = e.target.src;
+    }
+});
+lightbox.addEventListener('click', ()=>{
+    lightbox.style.display='none';
+    lightboxImg.src='';
+});
+
+// UPLOAD FOTO KENANGAN
+const uploadInput = document.getElementById('upload-photo');
+const gallery = document.getElementById('gallery');
+
+uploadInput.addEventListener('change', (e)=>{
+    const files = e.target.files;
+    for(let i=0;i<files.length;i++){
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onload = function(event){
+            const img = document.createElement('img');
+            img.src = event.target.result;
+            img.classList.add('gallery-img');
+            gallery.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+    }
+});
 </script>
-
 </body>
 </html>
